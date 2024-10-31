@@ -3,17 +3,6 @@ import Image from "next/image";
 import localFont from "next/font/local";
 import styles from "@/styles/Home.module.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
-
 export default function Home() {
   return (
     <>
@@ -23,95 +12,11 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div
-        className={`${styles.page} ${geistSans.variable} ${geistMono.variable}`}
-      >
+      <div>
         <main className={styles.main}>
-          <Image
-            className={styles.logo}
-            src="https://nextjs.org/icons/next.svg"
-            alt="Next.js logo"
-            width={180}
-            height={38}
-            priority
-          />
-          <ol>
-            <li>
-              Get started by editing <code>pages/index.js</code>.
-            </li>
-            <li>Save and see your changes instantly.</li>
-          </ol>
-
-          <div className={styles.ctas}>
-            <a
-              className={styles.primary}
-              href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Image
-                className={styles.logo}
-                src="https://nextjs.org/icons/vercel.svg"
-                alt="Vercel logomark"
-                width={20}
-                height={20}
-              />
-              Deploy now
-            </a>
-            <a
-              href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.secondary}
-            >
-              Read our docs
-            </a>
-          </div>
+          <h1>Welcome to Home</h1>
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Similique perspiciatis minima quo quam iusto sed, aspernatur, iure vitae, quaerat nisi unde officia. Officiis, nobis natus necessitatibus eligendi earum non tenetur at possimus sunt voluptates cum illo odio exercitationem fuga. Pariatur, et. Iusto, cumque. Odit, autem non consectetur maxime reprehenderit nobis ut doloribus suscipit, labore, laborum quod quia. Animi consectetur vel, blanditiis dolores libero velit odio reiciendis eaque. Voluptate, quibusdam magnam quidem qui ullam explicabo, doloremque dignissimos reprehenderit aspernatur blanditiis suscipit possimus minima provident laborum impedit! Deleniti quae quidem possimus facilis maxime vel veniam ducimus, sint eos architecto quasi ut, asperiores iure ex perferendis amet veritatis ab deserunt ipsam id. Distinctio odit, totam molestias quo consequatur dolores voluptatem ipsa ut animi? Ipsa pariatur voluptate labore ut debitis at similique cupiditate sequi, porro odio, exercitationem rem fuga id ea molestiae quibusdam nobis quisquam. Expedita dolor voluptates officia? Distinctio cupiditate dolorem quidem, tenetur fugiat non, velit amet quasi labore repellat, voluptatem vero ea doloribus eveniet voluptates voluptatum expedita in fuga aspernatur? Aliquid soluta sit ullam nulla, veniam laborum suscipit laudantium minus aut quae id, neque, corporis error quia odio harum odit. Temporibus nobis hic, nemo culpa dolor nam et! Voluptates et repudiandae atque.</p>
         </main>
-        <footer className={styles.footer}>
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              aria-hidden
-              src="https://nextjs.org/icons/file.svg"
-              alt="File icon"
-              width={16}
-              height={16}
-            />
-            Learn
-          </a>
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              aria-hidden
-              src="https://nextjs.org/icons/window.svg"
-              alt="Window icon"
-              width={16}
-              height={16}
-            />
-            Examples
-          </a>
-          <a
-            href="https://nextjs.org?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              aria-hidden
-              src="https://nextjs.org/icons/globe.svg"
-              alt="Globe icon"
-              width={16}
-              height={16}
-            />
-            Go to nextjs.org →
-          </a>
-        </footer>
       </div>
     </>
   );
