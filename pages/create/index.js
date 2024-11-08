@@ -41,22 +41,27 @@ const index = () => {
     // React Hook Form Area
     const { register, handleSubmit, watch, formState: { errors }, reset } = useForm();
     const [loading, setLoading] = useState(false);
+    const [image, setImage] = useState(null); // For Image
 
     const onSubmit = async (data) => {
 
         setLoading(true);
 
-        const reg = {
-            name: data.name,
-            email: data.email,
-            phone: data.phone
-        };
+        // Handling Form Data 
+        const formdata = new FormData();
+        formdata.append("name", data.name);
+        formdata.append("email", data.email);
+        formdata.append("phone", data.phone);
+        formdata.append("city", data.city);
+        formdata.append("class", data.class);
+        formdata.append("image", image);
 
         try {
-            const response = await creation(reg)
+            const response = await creation(formdata)
             console.log("C Response...", response);
             if (response && response?.status === 200) {
                 reset()
+                setImage('')
                 router.push('/read')
                 setLoading(false)
             } else {
@@ -160,6 +165,64 @@ const index = () => {
                                         <p style={{ color: 'red' }}>{errors.phone.message}</p>
                                     )}
                                 </Grid>
+
+                                <Grid item xs={12} sm={12}>
+                                    <TextField
+                                        autoComplete="given-name"
+                                        name="city"
+                                        required
+                                        fullWidth
+                                        id="city"
+                                        label="City"
+                                        autoFocus
+                                        {...register("city", {
+                                            required: "This field is Required",
+                                            minLength: {
+                                                value: 3,
+                                                message: "City must be atleast 3 characters"
+                                            }
+                                        })}
+                                    />
+                                    {errors?.city && (
+                                        <p style={{ color: 'red' }}>{errors.city.message}</p>
+                                    )}
+                                </Grid>
+
+                                <Grid item xs={12} sm={12}>
+                                    <TextField
+                                        autoComplete="given-name"
+                                        name="class"
+                                        required
+                                        fullWidth
+                                        id="class"
+                                        label="Class"
+                                        autoFocus
+                                        {...register("class", {
+                                            required: "This field is Required",
+                                            minLength: {
+                                                value: 3,
+                                                message: "Class must be atleast 3 characters"
+                                            }
+                                        })}
+                                    />
+                                    {errors?.class && (
+                                        <p style={{ color: 'red' }}>{errors.class.message}</p>
+                                    )}
+                                </Grid>
+
+                                {/*This form section is for the submit image*/}
+                                <Grid item xs={12}>
+                                    <div style={{ marginBottom: '20px' }}>
+                                        <input type="file" onChange={(e) => setImage(e.target.files[0])} name="image" accept="image/*" className="form-control" />
+
+                                        {image !== "" && image !== undefined && image !== null ? (
+                                            <img style={{ height: "180px" }} src={URL.createObjectURL(image)} alt="" className="upload-img" />
+                                        ) : (
+                                            <>{image === "" && <p style={{ color: 'white' }}>Drag or drop content here</p>}</>
+                                        )}
+                                    </div>
+                                </Grid>
+                                {/*Image area end*/}
 
                             </Grid>
                             <Button

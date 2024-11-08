@@ -43,6 +43,19 @@ const index = () => {
     // React Hook Form Area
     const { register, handleSubmit, watch, formState: { errors }, reset } = useForm();
     const [loading, setLoading] = useState(false);
+    const [image, setImage] = useState('');
+
+    // Single data fetch for image handling 
+    const getAmi = async () => {
+        const response = await singlestudent(id)
+        console.log("AMIIIIII", response);
+        return response?.data
+    }
+    const { data: amardata } = useQuery({
+        queryKey: ["amardata", id],
+        queryFn: getAmi
+    })
+
 
     // Get product For Single Value (Start)
     const getStudent = async () => {
@@ -53,7 +66,10 @@ const index = () => {
             const reg = {
                 name: response?.data?.name,
                 email: response?.data?.email,
-                phone: response?.data?.phone
+                phone: response?.data?.phone,
+                city: response?.data?.city,
+                class: response?.data?.class,
+                image: response?.data?.image
             };
             reset(reg)
 
@@ -69,14 +85,17 @@ const index = () => {
 
         setLoading(true);
 
-        const reg = {
-            name: data.name,
-            email: data.email,
-            phone: data.phone
-        };
+        // Handling Form Data 
+        const formdata = new FormData();
+        formdata.append("name", data.name);
+        formdata.append("email", data.email);
+        formdata.append("phone", data.phone);
+        formdata.append("city", data.city);
+        formdata.append("class", data.class);
+        formdata.append("image", image || amardata.image);
 
         try {
-            const response = await updatestudent({ data: reg, id })
+            const response = await updatestudent({ formdata, id })
             console.log("U Response...", response);
             if (response && response?.status === 200) {
                 router.push('/read')
@@ -194,6 +213,88 @@ const index = () => {
                                         <p style={{ color: 'red' }}>{errors.phone.message}</p>
                                     )}
                                 </Grid>
+
+                                <Grid item xs={12} sm={12}>
+                                    <TextField
+                                        autoComplete="given-name"
+                                        name="city"
+                                        required
+                                        fullWidth
+                                        id="city"
+                                        label="City"
+                                        autoFocus
+                                        InputLabelProps={{
+                                            shrink: true,
+                                            style: { fontSize: '1rem' } // Adjust the font size as needed
+                                        }}
+                                        {...register("city", {
+                                            required: "This field is Required",
+                                            minLength: {
+                                                value: 3,
+                                                message: "City must be atleast 3 characters"
+                                            }
+                                        })}
+                                    />
+                                    {errors?.city && (
+                                        <p style={{ color: 'red' }}>{errors.city.message}</p>
+                                    )}
+                                </Grid>
+
+                                <Grid item xs={12} sm={12}>
+                                    <TextField
+                                        autoComplete="given-name"
+                                        name="class"
+                                        required
+                                        fullWidth
+                                        id="class"
+                                        label="Class"
+                                        autoFocus
+                                        InputLabelProps={{
+                                            shrink: true,
+                                            style: { fontSize: '1rem' } // Adjust the font size as needed
+                                        }}
+                                        {...register("class", {
+                                            required: "This field is Required",
+                                            minLength: {
+                                                value: 3,
+                                                message: "Class must be atleast 3 characters"
+                                            }
+                                        })}
+                                    />
+                                    {errors?.class && (
+                                        <p style={{ color: 'red' }}>{errors.class.message}</p>
+                                    )}
+                                </Grid>
+
+                                {/*Handle Image Area Start*/}
+                                <Grid item xs={12}>
+                                    <div style={{ marginBottom: '20px' }}>
+                                        <input
+                                            type="file"
+                                            onChange={(e) => setImage(e.target.files[0])}
+                                            name="image"
+                                            accept="image/*"
+                                            className="form-control"
+                                        />
+
+                                        {image ? (
+                                            <img
+                                                height="180px"
+                                                src={URL.createObjectURL(image)}
+                                                alt="Uploaded"
+                                                className="upload-img"
+                                            />
+                                        ) : (
+                                            <img
+                                                height="180px"
+                                                src={`http://localhost:3004/${amardata?.image}`}
+                                                alt="Existing Employee"
+                                                className="upload-img"
+                                            />
+                                        )}
+                                    </div>
+                                </Grid>
+                                {/*Handle Image area end*/}
 
                             </Grid>
                             <Button

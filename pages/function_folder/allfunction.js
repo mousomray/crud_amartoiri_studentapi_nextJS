@@ -11,6 +11,7 @@ export const creation = async (data) => {
         toast.success(response?.data?.message);
         return response
     } catch (error) {
+        toast.error(error?.response?.data?.errors[0]);
         console.log("Error fetching create data...", error);
 
     }
@@ -34,6 +35,7 @@ export const deletestudent = async (id) => {
         const apiurl = `${myendpoints[3]}/${id}`
         const response = await axiosInstance.delete(apiurl)
         console.log("Fetching Delete data...", response);
+        toast.warn(response?.data?.message);
         return response
     } catch (error) {
         console.log("Error fetching Delete data...", error);
@@ -53,14 +55,15 @@ export const singlestudent = async (id) => {
 }
 
 // Update Function 
-export const updatestudent = async ({data, id}) => {
+export const updatestudent = async ({ formdata, id }) => {
     try {
         const apiurl = `${myendpoints[4]}/${id}`
-        const response = await axiosInstance.put(apiurl, data)
+        const response = await axiosInstance.put(apiurl, formdata)
         console.log("Fetching Update data...", response);
         toast.success(response?.data?.message);
         return response
     } catch (error) {
+        toast.error(response?.data?.errors[0]);
         console.log("Error Fetching Update data...", error);
 
     }

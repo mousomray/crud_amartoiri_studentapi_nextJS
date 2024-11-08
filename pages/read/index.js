@@ -128,6 +128,9 @@ const index = () => {
                 <Table sx={{ minWidth: 700 }} aria-label="customized table">
                     <TableHead>
                         <TableRow>
+                            <StyledTableCell>SLNO</StyledTableCell>
+                            <StyledTableCell>ID</StyledTableCell>
+                            <StyledTableCell>Image</StyledTableCell>
                             <StyledTableCell>Name</StyledTableCell>
                             <StyledTableCell align="center">Email</StyledTableCell>
                             <StyledTableCell align="center">Phone</StyledTableCell>
@@ -136,8 +139,27 @@ const index = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {filteredStudent?.slice(0, readdata.length).reverse()?.map((row) => (
+                        {filteredStudent?.slice(0, readdata.length).reverse()?.map((row, index) => (
                             <StyledTableRow key={row?.name}>
+                                <StyledTableCell component="th" scope="row">
+                                    {index + 1}
+                                </StyledTableCell>
+                                <StyledTableCell>
+                                    {row?._id.toString().slice(-4)}
+                                </StyledTableCell>
+                                <StyledTableCell component="th" scope="row">
+                                    <img
+                                        src={`http://localhost:3004/${row?.image}`}
+                                        alt=""
+                                        style={{
+                                            width: '80px',
+                                            height: '80px',
+                                            borderRadius: '50%',
+                                            objectFit: 'cover',
+                                            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
+                                        }}
+                                    />
+                                </StyledTableCell>
                                 <StyledTableCell component="th" scope="row">
                                     {row?.name}
                                 </StyledTableCell>
